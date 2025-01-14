@@ -2,7 +2,9 @@ package com.franzoso.products.services;
 
 import com.franzoso.products.dtos.*;
 import com.franzoso.products.entities.Product;
+import com.franzoso.products.infra.RequestExceptionHandler;
 import com.franzoso.products.repositories.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,7 @@ public class ProductService {
 
     @Transactional
     public UpdateProductResponseDTO updateProduct(String id, UpdateProductRequestDTO requestDTO) {
-        final var product = repository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        final var product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         product.updateProduct(
                 requestDTO.description(),
                 requestDTO.quantity(),
@@ -43,7 +45,7 @@ public class ProductService {
     }
 
     public SearchProductResponseDTO findById(String id) {
-        final var product = repository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        final var product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         return SearchProductResponseDTO.response(product);
     }
 
@@ -59,19 +61,19 @@ public class ProductService {
 
     @Transactional
     public void deactivateProduct(String id) {
-        final var product = repository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        final var product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         product.setActive(false);
     }
 
     @Transactional
     public void deleteProduct(String id) {
-        final var product = repository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        final var product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         repository.deleteById(id);
     }
 
     @Transactional
     public void activateProduct(String id) {
-        final var product = repository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        final var product = repository.findById(id).orElseThrow(() -> new EntityNotFoundException());
         product.setActive(true);
     }
 }

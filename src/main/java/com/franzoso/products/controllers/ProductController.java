@@ -27,7 +27,7 @@ public class ProductController {
     @Operation(summary = "Save new products", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Save successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Error saving data")
     })
     public ResponseEntity<CreateProductResponseDTO> saveProduct(@RequestBody CreateProductRequestDTO requestDTO) {
@@ -40,7 +40,7 @@ public class ProductController {
     @Operation(summary = "Update products", method = "PUT")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Update successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "500", description = "Error updating data")
     })
@@ -53,10 +53,10 @@ public class ProductController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Activate product by id", method = "PUT")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "deactivate successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "204", description = "Activate successfully completed"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
-            @ApiResponse(responseCode = "500", description = "Error deactivating data")
+            @ApiResponse(responseCode = "500", description = "Error activating data")
     })
     public ResponseEntity<Void> activateProduct(@RequestParam String id) {
         service.activateProduct(id);
@@ -68,7 +68,7 @@ public class ProductController {
     @Operation(summary = "Search products by id", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Search successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "500", description = "Error searching data")
     })
@@ -82,7 +82,7 @@ public class ProductController {
     @Operation(summary = "Search all active products", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Search successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Error searching data")
     })
     public ResponseEntity<List<ListProductResponseDTO>> findAllByActiveTrue() {
@@ -95,7 +95,7 @@ public class ProductController {
     @Operation(summary = "Search all products in the database ", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Search successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Error searching data")
     })
     public ResponseEntity<List<ListProductResponseDTO>> findAll() {
@@ -108,7 +108,7 @@ public class ProductController {
     @Operation(summary = "Deactivate product by id", method = "DELETE")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "deactivate successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "500", description = "Error deactivating data")
     })
@@ -122,7 +122,7 @@ public class ProductController {
     @Operation(summary = "Delete product by id", method = "DELETE")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Delete successfully completed"),
-            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "500", description = "Error deleting data")
     })
