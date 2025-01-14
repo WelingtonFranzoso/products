@@ -1,8 +1,6 @@
 package com.franzoso.products.dtos;
 
-import jakarta.persistence.Column;
-
-public record ProductRequestDTO(
+public record CreateProductRequestDTO(
         String name,
         String description,
         String brand,

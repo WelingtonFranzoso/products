@@ -10,7 +10,8 @@ public record ListProductResponseDTO(
         String barcode,
         Integer quantity,
         Double costPrice,
-        Double sellingPrice
+        Double sellingPrice,
+        Boolean active
 ) {
 
     public static ListProductResponseDTO response(Product product) {
@@ -22,7 +23,7 @@ public record ListProductResponseDTO(
                 product.getBarcode(),
                 product.getQuantity(),
                 product.getCostPrice(),
-                product.getSellingPrice());
+                product.getSellingPrice(),
+                product.getActive());
     }
-
 }

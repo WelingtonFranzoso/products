@@ -11,7 +11,8 @@ public record SearchProductResponseDTO(
         String barcode,
         Integer quantity,
         Double costPrice,
-        Double sellingPrice
+        Double sellingPrice,
+        Boolean active
 ) {
 
     public static SearchProductResponseDTO response(Product product) {
@@ -24,6 +25,7 @@ public record SearchProductResponseDTO(
                 product.getBarcode(),
                 product.getQuantity(),
                 product.getCostPrice(),
-                product.getSellingPrice());
+                product.getSellingPrice(),
+                product.getActive());
     }
 }

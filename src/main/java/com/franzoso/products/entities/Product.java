@@ -31,11 +31,13 @@ public class Product {
     private Double sellingPrice;
     @Column(name = "insertion_date", nullable = false, columnDefinition = "TIMESTAMP(6)")
     private LocalDateTime insertionDate;
+    @Column(name = "active", nullable = false)
+    private Boolean active;
 
     public Product() {
     }
 
-    private Product(String id, String name, String description, String brand, String category, String barcode, Integer quantity, Double costPrice, Double sellingPrice, LocalDateTime insertionDate) {
+    private Product(String id, String name, String description, String brand, String category, String barcode, Integer quantity, Double costPrice, Double sellingPrice, LocalDateTime insertionDate, Boolean active) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -46,13 +48,15 @@ public class Product {
         this.costPrice = costPrice;
         this.sellingPrice = sellingPrice;
         this.insertionDate = insertionDate;
+        this.active = active;
 
     }
 
     public static Product newProduct(String name, String description, String brand, String category, String barcode, Integer quantity, Double costPrice, Double sellingPrice) {
         String id = IdUtil.uuid();
         LocalDateTime insertionDate = LocalDateTime.now();
-        return new Product(id, name, description, brand, category, barcode, quantity, costPrice, sellingPrice, insertionDate);
+        Boolean active = true;
+        return new Product(id, name, description, brand, category, barcode, quantity, costPrice, sellingPrice, insertionDate, active);
     }
 
     public Product  updateProduct(String description, Integer quantity, Double sellingPrice) {
@@ -100,5 +104,13 @@ public class Product {
 
     public LocalDateTime getInsertionDate() {
         return insertionDate;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

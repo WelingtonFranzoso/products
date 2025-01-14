@@ -30,8 +30,8 @@ public class ProductController {
             @ApiResponse(responseCode = "400", description = "Validation error"),
             @ApiResponse(responseCode = "500", description = "Error saving data")
     })
-    public ResponseEntity<ProductResponseDTO> saveProduct(@RequestBody ProductRequestDTO requestDTO) {
-        ProductResponseDTO responseDTO = service.saveProduct(requestDTO);
+    public ResponseEntity<CreateProductResponseDTO> saveProduct(@RequestBody CreateProductRequestDTO requestDTO) {
+        CreateProductResponseDTO responseDTO = service.saveProduct(requestDTO);
         return ResponseEntity.created(URI.create("/products/" + responseDTO.id())).body(responseDTO);
     }
 
@@ -47,6 +47,20 @@ public class ProductController {
     public ResponseEntity<UpdateProductResponseDTO> updateProduct(@PathVariable("id") String id, @RequestBody UpdateProductRequestDTO requestDTO) {
         UpdateProductResponseDTO responseDTO = service.updateProduct(id, requestDTO);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @PutMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Activate product by id", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "deactivate successfully completed"),
+            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "404", description = "Product not found"),
+            @ApiResponse(responseCode = "500", description = "Error deactivating data")
+    })
+    public ResponseEntity<Void> activateProduct(@RequestParam String id) {
+        service.activateProduct(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
@@ -65,7 +79,20 @@ public class ProductController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Search all products", method = "GET")
+    @Operation(summary = "Search all active products", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Search successfully completed"),
+            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "500", description = "Error searching data")
+    })
+    public ResponseEntity<List<ListProductResponseDTO>> findAllByActiveTrue() {
+        List<ListProductResponseDTO> responseDTO = service.findAllByActiveTrue();
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Search all products in the database ", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Search successfully completed"),
             @ApiResponse(responseCode = "400", description = "Validation error"),
@@ -78,6 +105,20 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Deactivate product by id", method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "deactivate successfully completed"),
+            @ApiResponse(responseCode = "400", description = "Validation error"),
+            @ApiResponse(responseCode = "404", description = "Product not found"),
+            @ApiResponse(responseCode = "500", description = "Error deactivating data")
+    })
+    public ResponseEntity<Void> deactivateProduct(@PathVariable("id") String id) {
+        service.deactivateProduct(id);
+       return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping()
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete product by id", method = "DELETE")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Delete successfully completed"),
@@ -85,8 +126,8 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "Product not found"),
             @ApiResponse(responseCode = "500", description = "Error deleting data")
     })
-    public ResponseEntity<Void> deleteProduct(@PathVariable("id") String id) {
+    public ResponseEntity<Void> deleteProduct(@RequestParam String id) {
         service.deleteProduct(id);
-       return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
 }
