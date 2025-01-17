@@ -12,7 +12,7 @@ Além disso, a aplicação conta com documentação automatizada gerada pelo Swa
 - CRUD Completo: Realiza operações de criação, leitura, atualização e deleção de produtos.
 - Documentação Automática: A documentação da API é gerada automaticamente pelo Swagger, facilitando a compreensão das rotas e parâmetros.
 - Exceções Personalizadas: O gerenciamento de exceções é feito de forma personalizada com ExceptionHandler.
-- Gerenciamento de Banco de Dados: ara gerar e atualizar a tabela no banco de dados.
+- Gerenciamento de Banco de Dados com Flyway: Para gerar e atualizar a tabela no banco de dados.
 - Persistência de Dados: Utiliza o PostgreSQL como banco de dados relacional para armazenar as informações dos produtos.
 
 # Tecnologias utilizadas
